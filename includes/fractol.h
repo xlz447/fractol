@@ -13,8 +13,6 @@
 # define WIN_H 400
 # define WIN_W 600
 # define PI 3.14159265
-# define MAX_ITER 1000
-# define THRESH 1024 //???
 
 
 
@@ -23,6 +21,11 @@ typedef struct	s_mlx
 	void		*mlx;
 	void		*win;
 	float		scale;
+	int			set_mode; // 0 for Mandelbrot set
+	float		init_rl;
+	float		init_img;
+	int			max_iter;
+	float		max_dis;
 }				t_mlx;
 
 void			draw(t_mlx *m);
