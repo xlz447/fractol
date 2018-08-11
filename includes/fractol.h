@@ -10,8 +10,8 @@
 # include "../minilibx/mlx.h"
 # include "../libft/libft.h"
 
-# define WIN_H 500
-# define WIN_W 500
+# define WIN_H 600
+# define WIN_W 600
 # define PI 3.14159265
 
 
