@@ -19,10 +19,14 @@ void	setup(t_mlx *m, char *mode)
 	//else if ...
 	else
 		ft_errorexit("valid set names: Mandelbrot, ...");
-	m->init_rl = 0; // might have to change by case later
-	m->init_img = 0;
 	m->max_iter = 1000;
-	m->max_dis = 50000000000;
+	m->max_dis = 4;			// 2 ^ 2
+	m->x_mnmx[0] = -2.5;	// x min
+	m->x_mnmx[1] = 1;		// x max
+	m->y_mnmx[0] = -1;		// y min
+	m->y_mnmx[1] = 1;		// y max
+	m->shift[0] = 0;
+	m->shift[1] = 0;
 }
 
 int			main(int argc, char **argv)

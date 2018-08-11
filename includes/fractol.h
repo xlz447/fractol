@@ -10,8 +10,8 @@
 # include "../minilibx/mlx.h"
 # include "../libft/libft.h"
 
-# define WIN_H 400
-# define WIN_W 600
+# define WIN_H 500
+# define WIN_W 500
 # define PI 3.14159265
 
 
@@ -22,8 +22,9 @@ typedef struct	s_mlx
 	void		*win;
 	float		scale;
 	int			set_mode; // 0 for Mandelbrot set
-	float		init_rl;
-	float		init_img;
+	float		x_mnmx[2];
+	float		y_mnmx[2];
+	int			shift[2]; // xy shift (for bonus: zoom follow arrow)
 	int			max_iter;
 	float		max_dis;
 }				t_mlx;
