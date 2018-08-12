@@ -28,11 +28,11 @@ void	setup(t_mlx *m, char *mode)
 	else
 		ft_errorexit("valid set names: Mandelbrot, ...");
 	m->max_iter = 1000;
-	m->max_dis = 9;			// 2 ^ 2
-	m->x_mnmx[0] = -3;	// x min
-	m->x_mnmx[1] = 2;		// x max
-	m->y_mnmx[0] = -2;		// y min
-	m->y_mnmx[1] = 2;		// y max
+	m->max_dis = 4;			// 2 ^ 2
+	m->x_mnmx[0] = -2.5;	// x min
+	m->x_mnmx[1] = 1;		// x max
+	m->y_mnmx[0] = -1.5;		// y min
+	m->y_mnmx[1] = 1.5;		// y max
 	m->shift[0] = 0;
 	m->shift[1] = 0;
 }

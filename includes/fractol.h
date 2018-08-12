@@ -7,12 +7,12 @@
 # include <unistd.h>
 # include <sys/types.h>
 # include <sys/uio.h>
+# include <pthread.h>
 # include "../minilibx/mlx.h"
 # include "../libft/libft.h"
 
 # define WIN_H 600
 # define WIN_W 600
-# define PI 3.14159265
 
 
 
@@ -27,6 +27,7 @@ typedef struct	s_mlx
 	int			shift[2]; // xy shift (for bonus: zoom follow arrow)
 	int			max_iter;
 	float		max_dis;
+	char		thread_index;
 }				t_mlx;
 
 void			draw(t_mlx *m);

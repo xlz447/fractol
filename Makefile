@@ -22,6 +22,8 @@ FT_LIB	= $(addprefix $(FT),libft.a)
 FT_INC	= -I ./libft
 FT_LNK	= -L ./libft -l ft
 
+THR_LNK = -l pthread
+
 SRCDIR	= ./srcs/
 INCDIR	= ./includes/
 OBJDIR	= ./objs/
@@ -41,7 +43,7 @@ $(MLX_LIB):
 		@make -C $(MLX)
 
 $(NAME): $(OBJ)
-		@$(CC) $(OBJ) $(MLX_LNK) $(FT_LNK) -lm -o $(NAME)
+		@$(CC) $(OBJ) $(MLX_LNK) $(FT_LNK) $(THR_LNK) -lm -o $(NAME)
 		@echo "$(GREEN)FDF ✓ fractol ready$(NOC)"
 
 clean:

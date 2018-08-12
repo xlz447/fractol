@@ -48,8 +48,7 @@ float	*calc_coor(t_mlx *m, int cor[2])
 
 void	draw_man(t_mlx *m)
 {
-	double	cur_rl;		// the current z (real part)
-	double	cur_img;	// the current z (imaginary part)
+	double	cur[2];		// the current z (real and imaginary)
 	double	tmp;
 	int		i;			// the current iteration
 	int		cor[2];		// the pixel coordinate (x, y)
@@ -61,18 +60,16 @@ void	draw_man(t_mlx *m)
 		while (cor[0] < WIN_W)
 		{
 			i = 0;
-			cur_rl = 0;
-			cur_img = 0;
-			// loop stops when exceeed max distance or reach max iteration
-			while (i <= m->max_iter && pow(cur_rl, 2) + pow(cur_img, 2) <= m->max_dis)
+			cur[0] = 0;
+			cur[1] = 0;
+			while (i < m->max_iter && pow(cur[0], 2) + pow(cur[1], 2) <= m->max_dis)
 			{
-				// real and imaginary part for z' = z ^ 2 + c, c from the pixel point
-				tmp = pow(cur_rl, 2) - pow(cur_img, 2) + calc_coor(m, cor)[0];
-				cur_img = 2 * cur_rl * cur_img + calc_coor(m, cor)[1];
-				cur_rl = tmp;
+				tmp = pow(cur[0], 2) - pow(cur[1], 2) + calc_coor(m, cor)[0];
+				cur[1] = 2 * cur[0] * cur[1] + calc_coor(m, cor)[1];
+				cur[0] = tmp;
 				i++;
 			}		
-			//if (pow(cur_rl, 2) + pow(cur_img, 2) <= m->max_dis)
+			if (i != m->max_iter)
 				mlx_pixel_put(m->mlx, m->win, cor[0], cor[1], col_code(i));
 			cor[0]++;
 		}
@@ -80,12 +77,21 @@ void	draw_man(t_mlx *m)
 	}
 }
 
-
-
 void	draw(t_mlx *m)
 {
-	ft_putstr("Start Drawing\n");	
-	if(m->set_mode == 0)
+	pthread_t	th[4];
+	int			i;
+		
+	ft_putstr("Start Drawing\n");
+	if(m->set_mode == 0) // replace with thread later
 		draw_man(m);
+	i = 0;
+//	while (i < 4)
+//	{
+//		m->thread_index = i;
+//		if(m->set_mode == 0)
+//			draw_man(m);
+//		i++;
+//	}
 	ft_putstr("Done Drawing\n");
 }
