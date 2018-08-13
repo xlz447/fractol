@@ -37,7 +37,7 @@ int		col_code(int iter) // lol we need a col_code_2 to norm this
 }
 
 float	calc_cor(t_mlx *m, int cor[2], int mode)
-{	
+{
 	if (mode == 0)
 		return(((m->x_mnmx[0] + m->x_mnmx[1]) / 2 +
 				(cor[0] - (float)WIN_W / 2) * m->scale[0]));  // new x

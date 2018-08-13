@@ -1,10 +1,32 @@
 #include "../includes/fractol.h"
 
+int			mouse_handler(int b,int x,int y, t_mlx *m)
+{
+	float	x_mid;
+	float	y_mid;
+	float	n_mid[2];
+	int		t_mid[2];
+	
+	mlx_destroy_image(m->mlx, m->img);
+	t_mid[0] = x;
+	t_mid[1] = y;
+	n_mid[0] = calc_cor(m, t_mid, 0);
+	n_mid[1] = calc_cor(m, t_mid, 1);	
+	x_mid = (m->x_mnmx[1] + m->x_mnmx[0]) / 2;
+	y_mid = (m->y_mnmx[1] + m->y_mnmx[0]) / 2;	
+	m->x_mnmx[0] -= (x_mid - n_mid[0]);
+	m->x_mnmx[1] -= (x_mid - n_mid[0]);
+	m->y_mnmx[0] -= (y_mid - n_mid[1]);
+	m->y_mnmx[1] -= (y_mid - n_mid[1]);
+	draw(m);
+	return (0);
+}
+
 int			key_handler(int k, t_mlx *m)
 {
 	if (k == 53)
 		exit(0);
-	else
+	else if (k == 24)
 	{
 		mlx_destroy_image(m->mlx, m->img);
 		if (k == 24)
@@ -21,11 +43,11 @@ void	setup(t_mlx *m)
 {
 	m->mlx = mlx_init();
 	m->win = mlx_new_window(m->mlx, WIN_W, WIN_H, "fractol");
-	m->mx_i = 1000;
-	m->mx_d = 4;			// 2 ^ 2
-	m->x_mnmx[0] = -3;	// x min
+	m->mx_i = 50;
+	m->mx_d = 16;			// 2 ^ 2
+	m->x_mnmx[0] = -3;		// x min
 	m->x_mnmx[1] = 1;		// x max
-	m->y_mnmx[0] = -1.5;		// y min
+	m->y_mnmx[0] = -1.5;	// y min
 	m->y_mnmx[1] = 1.5;		// y max
 	m->scale[0] = (m->x_mnmx[1] - m->x_mnmx[0]) / WIN_W;
 	m->scale[1] = (m->y_mnmx[1] - m->y_mnmx[0]) / WIN_H;
@@ -45,7 +67,7 @@ int			main(int argc, char **argv)
 	setup(&m);
 	draw(&m);
 	mlx_key_hook(m.win, key_handler, &m);
-//	mlx_mouse_hook(m.win, mouse_handler, &m);
+	mlx_mouse_hook(m.win, mouse_handler, &m);
 	mlx_loop(m.mlx);
 	return (0);
 }
