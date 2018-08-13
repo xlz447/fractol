@@ -46,30 +46,34 @@ float	*calc_coor(t_mlx *m, int cor[2])
 	return (to_ret);
 }
 
-void	draw_man(t_mlx *m)
+void	*draw_man(void *ag)
 {
 	double	cur[2];		// the current z (real and imaginary)
 	double	tmp;
 	int		i;			// the current iteration
-	int		cor[2];		// the pixel coordinate (x, y)
+	int		cor[4];		// curr and starting coordinates (x, y)
+	t_mlx	*m;
 	
-	cor[1] = 0;
-	while (cor[1] < WIN_H)
+	m = (t_mlx *)ag;
+	cor[1] = (m->th_i / 2 != 0) ? WIN_H / 2: 0;
+	cor[3] = cor[1];
+	while (cor[1] < cor[3] + WIN_H / 2)
 	{
-		cor[0] = 0;
-		while (cor[0] < WIN_W)
+		cor[0] = (m->th_i % 2 != 0) ? WIN_W / 2: 0;
+		cor[2] = cor[0];
+		while (cor[0] < cor[2] + WIN_W / 2)
 		{
 			i = 0;
 			cur[0] = 0;
 			cur[1] = 0;
-			while (i < m->max_iter && pow(cur[0], 2) + pow(cur[1], 2) <= m->max_dis)
+			while (i < m->max_i && pow(cur[0], 2) + pow(cur[1], 2) <= m->max_d)
 			{
 				tmp = pow(cur[0], 2) - pow(cur[1], 2) + calc_coor(m, cor)[0];
 				cur[1] = 2 * cur[0] * cur[1] + calc_coor(m, cor)[1];
 				cur[0] = tmp;
 				i++;
 			}		
-			if (i != m->max_iter)
+			if (i != m->max_i)
 				mlx_pixel_put(m->mlx, m->win, cor[0], cor[1], col_code(i));
 			cor[0]++;
 		}
@@ -79,19 +83,20 @@ void	draw_man(t_mlx *m)
 
 void	draw(t_mlx *m)
 {
-	pthread_t	th[4];
+	pthread_t	th;
 	int			i;
 		
 	ft_putstr("Start Drawing\n");
-	if(m->set_mode == 0) // replace with thread later
-		draw_man(m);
+//	if(m->set_mode == 0) // replace with thread later
+//		draw_man(m);
 	i = 0;
-//	while (i < 4)
-//	{
-//		m->thread_index = i;
-//		if(m->set_mode == 0)
-//			draw_man(m);
-//		i++;
-//	}
+	while (i < 4)
+	{
+		m->th_i = i;
+		if(m->set_mode == 0)
+			pthread_create(&th, NULL, draw_man, (void*)m);
+		pthread_join(th, NULL);
+		i++;
+	}
 	ft_putstr("Done Drawing\n");
 }

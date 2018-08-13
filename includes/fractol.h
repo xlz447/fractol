@@ -14,8 +14,6 @@
 # define WIN_H 600
 # define WIN_W 600
 
-
-
 typedef struct	s_mlx
 {
 	void		*mlx;
@@ -25,9 +23,9 @@ typedef struct	s_mlx
 	float		x_mnmx[2];
 	float		y_mnmx[2];
 	int			shift[2]; // xy shift (for bonus: zoom follow arrow)
-	int			max_iter;
-	float		max_dis;
-	char		thread_index;
+	int			max_i;
+	float		max_d;
+	char		th_i;
 }				t_mlx;
 
 void			draw(t_mlx *m);
