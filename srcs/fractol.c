@@ -2,9 +2,9 @@
 
 void	*draw_man(void *ag)
 {
-	double	cur[3];		// the current z (real and imaginary) and tmp
-	int		i;			// the current iteration
-	int		cor[4];		// curr and starting coordinates (x, y)
+	double	cur[3];		// cur z (real and imaginary) and tmp
+	int		i;			// the cur iteration
+	int		cor[4];		// cur and init coordinates (x, y)
 	t_mlx	*m;
 	
 	m = (t_mlx *)ag;
@@ -25,10 +25,11 @@ void	*draw_man(void *ag)
 				cur[1] = 2 * cur[0] * cur[1] + calc_cor(m, cor, 1);
 				cur[0] = cur[2];
 			}		
-			if (i <= m->mx_i)
-				mlx_pixel_put(m->mlx, m->win, cor[0], cor[1], 0xffffff);
-				
-//				mlx_pixel_put(m->mlx, m->win, cor[0], cor[1], col_code(i));
+			if (i <= m->mx_i) // color
+				((unsigned int *)m->ad)[(cor[1] * WIN_W + cor[0])] = mlx_get_color_value (m->mlx, col_code(i));
+			else
+				((unsigned int *)m->ad)[(cor[1] * WIN_W + cor[0])] = mlx_get_color_value (m->mlx, 0);
+//mlx_pixel_put(m->mlx, m->win, cor[0], cor[1], col_code(i));
 			cor[0]++;
 		}
 		cor[1]++;
@@ -41,6 +42,11 @@ void	draw(t_mlx *m)
 	pthread_t	th;
 	int			i;
 		
+	m->img = mlx_new_image (m->mlx, WIN_W, WIN_H);
+	m->b_p_p = 8;
+	m->s_l = 1 * WIN_W;
+	m->end = 1;
+	m->ad = mlx_get_data_addr(m->img, &(m->b_p_p), &(m->s_l), &(m->end));
 	ft_putstr("Start Drawing\n");
 	i = 0;
 	while (i < 4)
@@ -51,6 +57,6 @@ void	draw(t_mlx *m)
 		pthread_join(th, NULL);
 		i++;
 	}
-	//mlx_put_image_to_window (m->mlx, m->win, m->img, 0, 0);
+	mlx_put_image_to_window (m->mlx, m->win, m->img, 0, 0);
 	ft_putstr("Done Drawing\n");
 }
