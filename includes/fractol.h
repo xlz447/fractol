@@ -18,6 +18,7 @@ typedef struct	s_mlx
 {
 	void		*mlx;
 	void		*win;
+	void		*img;
 	float		scale;
 	int			set_mode; // 0 for Mandelbrot set
 	float		x_mnmx[2];
