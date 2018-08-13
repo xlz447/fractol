@@ -23,10 +23,12 @@ typedef struct	s_mlx
 	float		x_mnmx[2];
 	float		y_mnmx[2];
 	int			shift[2]; // xy shift (for bonus: zoom follow arrow)
-	int			max_i;
-	float		max_d;
+	int			mx_i;
+	float		mx_d;
 	char		th_i;
 }				t_mlx;
 
 void			draw(t_mlx *m);
+int				col_code(int iter);
+float			calc_cor(t_mlx *m, int cor[2], int mode);
 # endif
