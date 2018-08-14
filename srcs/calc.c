@@ -44,3 +44,32 @@ float	calc_cor(t_mlx *m, int cor[2], int mode)
 	return(((m->y_mnmx[0] + m->y_mnmx[1]) / 2 +
 			(cor[1] - (float)WIN_H / 2) * m->scale[1])); // new y
 }
+
+void	shift(int k, t_mlx *m, float scale)
+{
+	float	shift;
+
+	shift = WIN_W * scale * fabs(m->scale[0]);
+	if (k >= 125)
+		shift = WIN_H * scale * fabs(m->scale[1]);
+	if (k == 126) // up
+	{
+		m->y_mnmx[0] += shift;
+		m->y_mnmx[1] += shift;
+	}
+	else if (k == 125) // down
+	{
+		m->y_mnmx[0] -= shift;
+		m->y_mnmx[1] -= shift;
+	}
+	else if (k == 123) // left
+	{
+		m->x_mnmx[0] += shift;
+		m->x_mnmx[1] += shift;
+	}
+	else if (k == 124) // right
+	{
+		m->x_mnmx[0] -= shift;
+		m->x_mnmx[1] -= shift;
+	}
+}

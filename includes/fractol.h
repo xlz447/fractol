@@ -48,4 +48,5 @@ typedef struct	s_mlx
 void			draw(t_mlx *m);
 int				col_code(int iter);
 float			calc_cor(t_mlx *m, int cor[2], int mode);
+void			shift(int k, t_mlx *m, float scale);
 # endif

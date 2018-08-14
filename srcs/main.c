@@ -24,15 +24,24 @@ int			mouse_handler(int b,int x,int y, t_mlx *m)
 
 int			key_handler(int k, t_mlx *m)
 {
+	ft_putnbr(k);
+	ft_putchar('\n');
 	if (k == 53)
 		exit(0);
-	else if (k == 24)
+	else if (k == 24 || (k >= 123 && k <= 126) || k == 12 || k == 13)
 	{
 		mlx_destroy_image(m->mlx, m->img);
 		if (k == 24)
 		{		
 			m->scale[0] /= 5;
 			m->scale[1] /= 5;			
+		}
+		else if (k >= 123 && k <= 126)
+			shift(k, m, 0.1);
+		else if (k == 12 || k == 13)
+		{
+			m->mx_i = m->mx_i * round((k % 2) ? 0.5 : 2);
+			m->mx_i = (m->mx_i) ? m->mx_i : 1;
 		}
 		draw(m);
 	}
@@ -43,8 +52,8 @@ void	setup(t_mlx *m)
 {
 	m->mlx = mlx_init();
 	m->win = mlx_new_window(m->mlx, WIN_W, WIN_H, "fractol");
-	m->mx_i = 50;
-	m->mx_d = 16;			// 2 ^ 2
+	m->mx_i = 100;
+	m->mx_d = 16;
 	m->x_mnmx[0] = -3;		// x min
 	m->x_mnmx[1] = 1;		// x max
 	m->y_mnmx[0] = -1.5;	// y min
