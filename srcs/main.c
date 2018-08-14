@@ -28,13 +28,13 @@ int			key_handler(int k, t_mlx *m)
 	ft_putchar('\n');
 	if (k == 53)
 		exit(0);
-	else if (k == 24 || (k >= 123 && k <= 126) || k == 12 || k == 13)
+	else if (k == 24 ||  k == 27 || (k >= 123 && k <= 126) || k == 12 || k == 13)
 	{
 		mlx_destroy_image(m->mlx, m->img);
-		if (k == 24)
+		if (k == 24 || k == 27)
 		{		
-			m->scale[0] /= 5;
-			m->scale[1] /= 5;			
+			m->scale[0] = m->scale[0] / ((k == 24) ? 5 : 0.2);
+			m->scale[1] = m->scale[1] / ((k == 24) ? 5 : 0.2);
 		}
 		else if (k >= 123 && k <= 126)
 			shift(k, m, 0.1);

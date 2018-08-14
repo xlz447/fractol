@@ -44,18 +44,18 @@ $(MLX_LIB):
 
 $(NAME): $(OBJ)
 		@$(CC) $(OBJ) $(MLX_LNK) $(FT_LNK) $(THR_LNK) -lm -o $(NAME)
-		@echo "$(GREEN)FDF ✓ fractol ready$(NOC)"
+		@echo "$(GREEN)FRACTOL ✓ fractol ready$(NOC)"
 
 clean:
 		@rm -rf $(OBJDIR)
 		@make -C $(FT) clean
 		@make -C $(MLX) clean
-		@echo "$(BLUE)FDF ✓ Removed .o files$(NOC)"
+		@echo "$(BLUE)FRACTOL ✓ Removed .o files$(NOC)"
 
 fclean: clean
 		@make -C $(FT) fclean
 		@rm -rf $(NAME)
-		@echo "$(RED)FDF ✓ Removed fractol executable$(NOC)"
+		@echo "$(RED)FRACTOL ✓ Removed fractol executable$(NOC)"
 
 re: fclean all
 
