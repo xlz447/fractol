@@ -5,19 +5,16 @@ int			mouse_handler(int b,int x,int y, t_mlx *m)
 	float	x_mid;
 	float	y_mid;
 	float	n_mid[2];
-	int		t_mid[2];
 	
 	mlx_destroy_image(m->mlx, m->img);
-	t_mid[0] = x;
-	t_mid[1] = y;
-	n_mid[0] = calc_cor(m, t_mid, 0);
-	n_mid[1] = calc_cor(m, t_mid, 1);	
-	x_mid = (m->x_mnmx[1] + m->x_mnmx[0]) / 2;
-	y_mid = (m->y_mnmx[1] + m->y_mnmx[0]) / 2;	
-	m->x_mnmx[0] -= (x_mid - n_mid[0]);
-	m->x_mnmx[1] -= (x_mid - n_mid[0]);
-	m->y_mnmx[0] -= (y_mid - n_mid[1]);
-	m->y_mnmx[1] -= (y_mid - n_mid[1]);
+	n_mid[0] = calc_cor(m, x, 0);
+	n_mid[1] = calc_cor(m, y, 1);	
+	x_mid = (m->xy_mnmx[0] + m->xy_mnmx[1]) / 2;
+	y_mid = (m->xy_mnmx[2] + m->xy_mnmx[3]) / 2;	
+	m->xy_mnmx[0] -= (x_mid - n_mid[0]);
+	m->xy_mnmx[1] -= (x_mid - n_mid[0]);
+	m->xy_mnmx[2] -= (y_mid - n_mid[1]);
+	m->xy_mnmx[3] -= (y_mid - n_mid[1]);
 	draw(m);
 	return (0);
 }
@@ -52,14 +49,16 @@ void	setup(t_mlx *m)
 {
 	m->mlx = mlx_init();
 	m->win = mlx_new_window(m->mlx, WIN_W, WIN_H, "fractol");
-	m->mx_i = 100;
-	m->mx_d = 16;
-	m->x_mnmx[0] = -3;		// x min
-	m->x_mnmx[1] = 1;		// x max
-	m->y_mnmx[0] = -1.5;	// y min
-	m->y_mnmx[1] = 1.5;		// y max
-	m->scale[0] = (m->x_mnmx[1] - m->x_mnmx[0]) / WIN_W;
-	m->scale[1] = (m->y_mnmx[1] - m->y_mnmx[0]) / WIN_H;
+	m->mx_i = 50;
+	m->mx_d = 4;
+	m->xy_mnmx[0] = -3;		// x min
+	m->xy_mnmx[1] = 1;		// x max
+	m->xy_mnmx[2] = -1.5;	// y min
+	m->xy_mnmx[3] = 1.5;		// y max
+	m->scale[0] = (m->xy_mnmx[1] - m->xy_mnmx[0]) / WIN_W;
+	m->scale[1] = (m->xy_mnmx[3] - m->xy_mnmx[2]) / WIN_H;
+	m->init_c[0] = 3;
+	m->init_c[1] = 0;
 }
 
 int			main(int argc, char **argv)
@@ -70,9 +69,10 @@ int			main(int argc, char **argv)
 		ft_errorexit("usage: ./fractol <Set Name>");
 	if (!strcmp(argv[1], "Mandelbrot"))
 		m.set_mode = 0;
-	//else if ...
+	else if (!strcmp(argv[1], "Julia"))
+		m.set_mode = 1;
 	else
-		ft_errorexit("valid set names: Mandelbrot, ...");
+		ft_errorexit("valid set names: Mandelbrot, Julia");
 	setup(&m);
 	draw(&m);
 	mlx_key_hook(m.win, key_handler, &m);

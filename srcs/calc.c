@@ -36,13 +36,10 @@ int		col_code(int iter) // lol we need a col_code_2 to norm this
 	return (65536 * 106 + 256 * 52 + 3);
 }
 
-float	calc_cor(t_mlx *m, int cor[2], int mode)
+float	calc_cor(t_mlx *m, int cor, int md) // 0: x 1: y
 {
-	if (mode == 0)
-		return(((m->x_mnmx[0] + m->x_mnmx[1]) / 2 +
-				(cor[0] - (float)WIN_W / 2) * m->scale[0]));  // new x
-	return(((m->y_mnmx[0] + m->y_mnmx[1]) / 2 +
-			(cor[1] - (float)WIN_H / 2) * m->scale[1])); // new y
+		return(((m->xy_mnmx[2 * md + 0] + m->xy_mnmx[2 * md + 1]) / 2 +
+				(cor - (float)WIN_W / 2) * m->scale[md]));
 }
 
 void	shift(int k, t_mlx *m, float scale)
@@ -54,22 +51,22 @@ void	shift(int k, t_mlx *m, float scale)
 		shift = WIN_H * scale * fabs(m->scale[1]);
 	if (k == 126) // up
 	{
-		m->y_mnmx[0] += shift;
-		m->y_mnmx[1] += shift;
+		m->xy_mnmx[2] += shift;
+		m->xy_mnmx[3] += shift;
 	}
 	else if (k == 125) // down
 	{
-		m->y_mnmx[0] -= shift;
-		m->y_mnmx[1] -= shift;
+		m->xy_mnmx[2] -= shift;
+		m->xy_mnmx[3] -= shift;
 	}
 	else if (k == 123) // left
 	{
-		m->x_mnmx[0] += shift;
-		m->x_mnmx[1] += shift;
+		m->xy_mnmx[0] += shift;
+		m->xy_mnmx[1] += shift;
 	}
 	else if (k == 124) // right
 	{
-		m->x_mnmx[0] -= shift;
-		m->x_mnmx[1] -= shift;
+		m->xy_mnmx[0] -= shift;
+		m->xy_mnmx[1] -= shift;
 	}
 }
