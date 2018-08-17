@@ -49,18 +49,18 @@ void	setup(t_mlx *m)
 {
 	m->mlx = mlx_init();
 	m->win = mlx_new_window(m->mlx, WIN_W, WIN_H, "fractol");
-	m->mx_i = 50;
+	m->mx_i = 100;
 	m->mx_d = 4;
-	m->xy_mnmx[0] = -3;		// x min
+	m->xy_mnmx[0] = -2.5;		// x min
 	m->xy_mnmx[1] = 1;		// x max
-	m->xy_mnmx[2] = -1.5;	// y min
-	m->xy_mnmx[3] = 1.5;		// y max
+	m->xy_mnmx[2] = -1;	// y min
+	m->xy_mnmx[3] = 1;		// y max
 	m->scale[0] = (m->xy_mnmx[1] - m->xy_mnmx[0]) / WIN_W;
 	m->scale[1] = (m->xy_mnmx[3] - m->xy_mnmx[2]) / WIN_H;
-	m->init_c[0] = 3;
-	m->init_c[1] = 0;
+	m->init_c[0] = 0;
+	m->init_c[1] = 1;
 }
-
+	
 int			main(int argc, char **argv)
 {
 	t_mlx	m;
