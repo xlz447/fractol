@@ -37,7 +37,7 @@ int			key_handler(int k, t_mlx *m)
 	ft_putchar('\n');
 	if (k == 53)
 		exit(0);
-	else if (k == 24 ||  k == 27 || (k >= 123 && k <= 126) || k == 12 || k == 13)
+	else if (k == 24 ||  k == 27 || (k >= 123 && k <= 126) || k == 12 || k == 13 || k == 18 || k == 19)
 	{
 		mlx_destroy_image(m->mlx, m->img);
 		if (k == 24 || k == 27)
@@ -49,7 +49,7 @@ int			key_handler(int k, t_mlx *m)
 			shift(k, m, 0.1);
 		else if (k == 12 || k == 13)
 		{
-			m->mx_i = m->mx_i * round((k % 2) ? 0.5 : 2);
+			m->mx_i = round((float)m->mx_i * ((k % 2) ? 0.5 : 2));
 			m->mx_i = (m->mx_i) ? m->mx_i : 1;
 		}
 		draw(m);
