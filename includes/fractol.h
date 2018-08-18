@@ -34,6 +34,8 @@ typedef struct	s_mlx // if we want to do mult. image, we might need a struct
 	float		mx_d;	// max distance
 	char		th_i;	// thread index
 	float		init_c[2]; // the constant used in julia (change by arrow position)
+	int			mouse[2];
+	char		hold;	// this allows user to hold the constant for julia
 }				t_mlx;
 
 
