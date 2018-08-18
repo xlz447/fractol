@@ -41,7 +41,7 @@ float	calc_cor(t_mlx *m, int cor, int md) // 0: x 1: y
 	if (md == 0)
 		return(((m->xy_mnmx[0] + m->xy_mnmx[1]) / 2 +
 				(cor - (float)WIN_W / 2) * m->scale[0]));
-		return(((m->xy_mnmx[2] + m->xy_mnmx[3]) / 2 +
+		return(((m->xy_mnmx[2] + m->xy_mnmx[3]) / 2 -
 				(cor - (float)WIN_H / 2) * m->scale[1]));	
 }
 

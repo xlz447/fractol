@@ -19,8 +19,6 @@ void	*draw_jul(void *ag)
 			i = -1;
 			cur[0] = calc_cor(m, cor[0], 0);
 			cur[1] = calc_cor(m, cor[1], 1);
-			printf("(%d, %d) -> (%f, %f)\n", cor[0], cor[1], cur[0], cur[1]);
-			fflush(stdout);
 			while (i++ < m->mx_i && pow(cur[0], 2) + pow(cur[1], 2) <= m->mx_d)
 			{
 				cur[2] = pow(cur[0], 2) - pow(cur[1], 2) + m->init_c[0];
