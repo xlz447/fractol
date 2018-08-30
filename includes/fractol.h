@@ -15,8 +15,8 @@
 #include <stdio.h>
 // -----------------
 
-# define WIN_H 1200
-# define WIN_W 1200
+# define WIN_H 600
+# define WIN_W 800
 
 typedef struct	s_mlx // if we want to do mult. image, we might need a struct
 {
