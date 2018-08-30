@@ -131,11 +131,7 @@ void	draw(t_mlx *m)
 //	pthread_t	th;
 //	int			i;
 		
-	m->img = mlx_new_image (m->mlx, WIN_W, WIN_H);
-	m->b_p_p = 8;
-	m->s_l = 1 * WIN_W;
-	m->end = 1;
-	m->ad = mlx_get_data_addr(m->img, &(m->b_p_p), &(m->s_l), &(m->end));
+
 	ft_putstr("Start Drawing\n");
 //	i = 0;
 	if(m->set_mode == 0)

@@ -6,7 +6,7 @@ int			mouse_move(int x, int y, t_mlx *m)
 	m->mouse[1] = y;
 	if (m->set_mode == 1 && !m->hold)
 	{
-		mlx_destroy_image(m->mlx, m->img);
+//		mlx_destroy_image(m->mlx, m->img);
 		m->init_c[0] = calc_cor(m, x, 0);
 		m->init_c[1] = calc_cor(m, y, 1);;
 		draw(m);
@@ -22,8 +22,8 @@ int			mouse_handler(int b, int x, int y, t_mlx *m)
 	
 	ft_putnbr(b);
 	ft_putchar('\n');
-	if (b != 42)
-		mlx_destroy_image(m->mlx, m->img);
+//	if (b != 42)
+//		mlx_destroy_image(m->mlx, m->img);
 	if (b == 4 || b == 5)
 	{
 		m->scale[0] = m->scale[0] / ((b == 4) ? 1.5 : 0.9);
@@ -50,7 +50,7 @@ int			key_handler(int k, t_mlx *m)
 		exit(0);
 	else if (k == 4 || k == 24 || k == 27 || (k >= 123 && k <= 126) || k == 69 || k == 78)
 	{
-		mlx_destroy_image(m->mlx, m->img);
+//		mlx_destroy_image(m->mlx, m->img);
 		if (k == 4)
 			m->hold = !m->hold;
 		// else if (k == 24 || k == 27)
@@ -89,6 +89,11 @@ void	setup(t_mlx *m)
 	m->mouse[0] = 0;
 	m->mouse[1] = 0;
 	m->hold = 0;
+	m->img = mlx_new_image (m->mlx, WIN_W, WIN_H);
+	m->b_p_p = 8;
+	m->s_l = 1 * WIN_W;
+	m->end = 1;
+	m->ad = mlx_get_data_addr(m->img, &(m->b_p_p), &(m->s_l), &(m->end));
 }
 
 int			main(int argc, char **argv)
