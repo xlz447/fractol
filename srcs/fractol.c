@@ -45,10 +45,10 @@ void	*draw_jul(void *ag)
 				cur[0] = cur[2];
 			}		
 			if (i <= m->mx_i) // color
-				((unsigned int *)m->ad)[(cor[1] * WIN_W + cor[0])] = mlx_get_color_value (m->mlx, g_color[i % 16]);
+				((unsigned int *)m->ad)[(cor[1] * WIN_W + cor[0])] = g_color[i % 16];
 			//mlx_pixel_put(m->mlx, m->win, cor[0], cor[1], col_code(i)); <- in case of stuff not working lol			
 			else
-				((unsigned int *)m->ad)[(cor[1] * WIN_W + cor[0])] = mlx_get_color_value (m->mlx, 0);
+				((unsigned int *)m->ad)[(cor[1] * WIN_W + cor[0])] = 0;
 			cor[0]++;
 		}
 		cor[1]++;
