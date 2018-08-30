@@ -14,14 +14,21 @@ int			mouse_move(int x, int y, t_mlx *m)
 	return (0);
 }
 
-int			mouse_handler(int b,int x,int y, t_mlx *m)
+int			mouse_handler(int b, int x, int y, t_mlx *m)
 {
 	float	x_mid;
 	float	y_mid;
 	float	n_mid[2];
 	
+	ft_putnbr(b);
+	ft_putchar('\n');
 	if (b != 42)
 		mlx_destroy_image(m->mlx, m->img);
+	if (b == 4 || b == 5)
+	{
+		m->scale[0] = m->scale[0] / ((b == 4) ? 1.5 : 0.9);
+		m->scale[1] = m->scale[1] / ((b == 4) ? 1.5 : 0.9);
+	}
 	n_mid[0] = calc_cor(m, x, 0);
 	n_mid[1] = calc_cor(m, y, 1);	
 	x_mid = (m->xy_mnmx[0] + m->xy_mnmx[1]) / 2;
@@ -41,24 +48,24 @@ int			key_handler(int k, t_mlx *m)
 	ft_putchar('\n');
 	if (k == 53)
 		exit(0);
-	else if (k == 4 || k == 24 || k == 27 || (k >= 123 && k <= 126) || k == 12 || k == 13)
+	else if (k == 4 || k == 24 || k == 27 || (k >= 123 && k <= 126) || k == 69 || k == 78)
 	{
 		mlx_destroy_image(m->mlx, m->img);
 		if (k == 4)
 			m->hold = !m->hold;
-		else if (k == 24 || k == 27)
-		{
-			if (m->set_mode == 0 || (m->set_mode == 1 && m->hold))
-				mouse_handler(42, m->mouse[0], m->mouse[1], m);	
-			m->scale[0] = m->scale[0] / ((k == 24) ? 5 : 0.2);
-			m->scale[1] = m->scale[1] / ((k == 24) ? 5 : 0.2);
-		}
+		// else if (k == 24 || k == 27)
+		// {
+		// 	if (m->set_mode == 0 || (m->set_mode == 1 && m->hold))
+		// 		mouse_handler(42, m->mouse[0], m->mouse[1], m);	
+		// 	m->scale[0] = m->scale[0] / ((k == 24) ? 5 : 0.2);
+		// 	m->scale[1] = m->scale[1] / ((k == 24) ? 5 : 0.2);
+		// }
 		else if (k >= 123 && k <= 126)
 			shift(k, m, 0.1);
-		else if (k == 12 || k == 13)
+		else if (k == 69 || k == 78)
 		{
-			m->mx_i = round((float)m->mx_i * ((k % 2) ? 0.5 : 2));
-			m->mx_i = (m->mx_i) ? m->mx_i : 1;
+			m->mx_i = k == 78 ? m->mx_i - 5 : m->mx_i + 5;//round((float)m->mx_i * (!(k % 2) ? 0.5 : 2));
+			//m->mx_i = (m->mx_i) ? m->mx_i : 1;
 		}
 		draw(m);
 	}
@@ -69,7 +76,7 @@ void	setup(t_mlx *m)
 {
 	m->mlx = mlx_init();
 	m->win = mlx_new_window(m->mlx, WIN_W, WIN_H, "fractol");
-	m->mx_i = 100;
+	m->mx_i = 20;
 	m->mx_d = 4;
 	m->xy_mnmx[0] = -2.5;		// x min
 	m->xy_mnmx[1] = 1;		// x max
@@ -85,12 +92,11 @@ void	setup(t_mlx *m)
 }
 
 int			main(int argc, char **argv)
-	// if we want to make multiple windows, we will need multithreading on each of the windows (because of the loop hanging there)
 {
 	t_mlx	m;
 
 	if (argc != 2)
-		ft_errorexit("usage: ./fractol <Set Name>");
+		ft_errorexit("usage: ./fractol <Mandelbrot, Julia>");
 	if (!strcmp(argv[1], "Mandelbrot"))
 		m.set_mode = 0;
 	else if (!strcmp(argv[1], "Julia"))
