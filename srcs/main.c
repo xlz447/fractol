@@ -6,7 +6,6 @@ int			mouse_move(int x, int y, t_mlx *m)
 	m->mouse[1] = y;
 	if (m->set_mode == 1 && !m->hold)
 	{
-//		mlx_destroy_image(m->mlx, m->img);
 		m->init_c[0] = calc_cor(m, x, 0);
 		m->init_c[1] = calc_cor(m, y, 1);;
 		draw(m);
@@ -22,8 +21,6 @@ int			mouse_handler(int b, int x, int y, t_mlx *m)
 	
 	ft_putnbr(b);
 	ft_putchar('\n');
-//	if (b != 42)
-//		mlx_destroy_image(m->mlx, m->img);
 	if (b == 4 || b == 5)
 	{
 		m->scale[0] = m->scale[0] / ((b == 4) ? 1.5 : 0.9);
@@ -37,8 +34,7 @@ int			mouse_handler(int b, int x, int y, t_mlx *m)
 	m->xy_mnmx[1] -= (x_mid - n_mid[0]);
 	m->xy_mnmx[2] -= (y_mid - n_mid[1]);
 	m->xy_mnmx[3] -= (y_mid - n_mid[1]);
-	if (b != 42)
-		draw(m);
+	draw(m);
 	return (0);
 }
 
@@ -50,7 +46,6 @@ int			key_handler(int k, t_mlx *m)
 		exit(0);
 	else if (k == 4 || k == 24 || k == 27 || (k >= 123 && k <= 126) || k == 69 || k == 78)
 	{
-//		mlx_destroy_image(m->mlx, m->img);
 		if (k == 4)
 			m->hold = !m->hold;
 		// else if (k == 24 || k == 27)
@@ -76,7 +71,7 @@ void	setup(t_mlx *m)
 {
 	m->mlx = mlx_init();
 	m->win = mlx_new_window(m->mlx, WIN_W, WIN_H, "fractol");
-	m->mx_i = 20;
+	m->mx_i = 50;
 	m->mx_d = 4;
 	m->xy_mnmx[0] = -2.5;		// x min
 	m->xy_mnmx[1] = 1;		// x max

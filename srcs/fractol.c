@@ -20,13 +20,27 @@ const int g_color[16] =
 	65536 * 106 + 256 * 52 + 3
 };
 
+int		test_converge(t_mlx *m, float cur[2], float param[2])
+{
+	int		i;
+	
+	i = 0;
+	while (i < m->mx_i && cur[0] * cur[0] + cur[1] * cur[1] <= m->mx_d)
+	{
+		cur[2] = cur[0] * cur[0] - cur[1] * cur[1] + param[0];
+		cur[1] = 2 * cur[0] * cur[1] + param[1];
+		cur[0] = cur[2];
+		i++;
+	}
+	return (i);	
+}
+
 void	*draw_jul(void *ag)
 {
-	double	cur[3];		// cur z (real and imaginary) and tmp
+	float	cur[3];		// cur z (real and imaginary) and tmp
 	int		i;			// the cur iteration
-//	int		cor[4];		// cur and init coordinates (x, y)
 	t_mlx	*m;
-	int		cor[2];
+	int		cor[2];		// cur and init coordinates (x, y)
 
 	m = (t_mlx *)ag;
 	cor[1] = 0;
@@ -35,18 +49,11 @@ void	*draw_jul(void *ag)
 		cor[0] = 0;
 		while (cor[0] < WIN_W)
 		{
-			i = -1;
 			cur[0] = calc_cor(m, cor[0], 0);
-			cur[1] = calc_cor(m, cor[1], 1);
-			while (i++ < m->mx_i && cur[0] * cur[0] + cur[1] * cur[1] <= m->mx_d)
-			{
-				cur[2] = cur[0] * cur[0] - cur[1] * cur[1] + m->init_c[0];
-				cur[1] = 2 * cur[0] * cur[1] + m->init_c[1];
-				cur[0] = cur[2];
-			}		
+			cur[1] = calc_cor(m, cor[1], 1);			
+			i = test_converge(m, cur, m->init_c);
 			if (i <= m->mx_i) // color
 				((unsigned int *)m->ad)[(cor[1] * WIN_W + cor[0])] = g_color[i % 16];
-			//mlx_pixel_put(m->mlx, m->win, cor[0], cor[1], col_code(i)); <- in case of stuff not working lol			
 			else
 				((unsigned int *)m->ad)[(cor[1] * WIN_W + cor[0])] = 0;
 			cor[0]++;
@@ -85,11 +92,11 @@ void	*draw_jul(void *ag)
 
 void	*draw_man(void *ag)
 {
-	double	cur[3];		// cur z (real and imaginary) and tmp
+	float	cur[3];		// cur z (real and imaginary) and tmp
+	float	pxl_to_coor[2];
 	int		i;			// the cur iteration
-//	int		cor[4];		// cur and init coordinates (x, y)
 	t_mlx	*m;
-	int		cor[2];
+	int		cor[2];		// cur and init coordinates (x, y)
 	
 	m = (t_mlx *)ag;
 	cor[1] = 0; // y
@@ -101,15 +108,17 @@ void	*draw_man(void *ag)
 			i = -1;
 			cur[0] = 0;
 			cur[1] = 0;
-			while (i++ < m->mx_i && pow(cur[0], 2) + pow(cur[1], 2) <= m->mx_d)
-			{
-				cur[2] = pow(cur[0], 2) - pow(cur[1], 2) + calc_cor(m, cor[0], 0);
-				cur[1] = 2 * cur[0] * cur[1] + calc_cor(m, cor[1], 1);
-				cur[0] = cur[2];
-			}		
+			pxl_to_coor[0] = calc_cor(m, cor[0], 0);
+			pxl_to_coor[1] = calc_cor(m, cor[1], 1);
+			i = test_converge(m, cur, pxl_to_coor);
+//			while (i++ < m->mx_i && cur[0] * cur[0] + cur[1] * cur[1] <= m->mx_d)
+//			{
+//				cur[2] = cur[0] * cur[0] - cur[1] * cur[1] + calc_cor(m, cor[0], 0);
+//				cur[1] = 2 * cur[0] * cur[1] + calc_cor(m, cor[1], 1);
+//				cur[0] = cur[2];
+//			}		
 			if (i <= m->mx_i) // color
-				((unsigned int *)m->ad)[(cor[1] * WIN_W + cor[0])] = mlx_get_color_value (m->mlx, col_code(i));
-			//mlx_pixel_put(m->mlx, m->win, cor[0], cor[1], col_code(i)); <- in case of stuff not working lol			
+				((unsigned int *)m->ad)[(cor[1] * WIN_W + cor[0])] = g_color[i % 16];
 			else
 				((unsigned int *)m->ad)[(cor[1] * WIN_W + cor[0])] = mlx_get_color_value (m->mlx, 0);
 			cor[0]++;
@@ -151,10 +160,6 @@ void	draw(t_mlx *m)
 //	pthread_t	th;
 //	int			i;
 		
-	static unsigned int x = 0;
-	x ++;
-	ft_putstr("Start Drawing\n");
-	ft_putnbr(x);
 //	i = 0;
 	if(m->set_mode == 0)
 		draw_man((void*)m);
@@ -171,5 +176,4 @@ void	draw(t_mlx *m)
 //		i++;
 //	}
 	mlx_put_image_to_window (m->mlx, m->win, m->img, 0, 0);
-	ft_putstr("Done Drawing\n");
 }
