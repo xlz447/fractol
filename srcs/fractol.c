@@ -49,10 +49,8 @@ int julia_converge(t_mlx *m, int x, int y)
 	int		i;
 
 	i = 0;
-	cur[0] = 0;
-	cur[1] = 0;
-	pxl_to_coor[0] = calc_cor(m, x, 0);
-	pxl_to_coor[1] = calc_cor(m, y, 1);
+	cur[0] = calc_cor(m, x, 0);
+	cur[1] = calc_cor(m, y, 1);
 	while (i++ < m->mx_i && cur[0] * cur[0] + cur[1] * cur[1] <= m->mx_d)
 	{
 		cur[2] = cur[0] * cur[0] - cur[1] * cur[1] + m->init_c[0];
@@ -118,6 +116,8 @@ void draw(t_mlx *m)
 				i = man_converge(m, x, y);
 			else if (m->set_mode == 2)
 				i = ship_converge(m, x, y);
+			else if (m->set_mode == 1)
+				i = julia_converge(m, x, y);
 			((unsigned int *)m->ad)[(y * WIN_W + x)] = i <= m->mx_i ?
 			g_color[i % 16] : 0;
 		}
