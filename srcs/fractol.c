@@ -20,31 +20,9 @@ const int g_color[16] =
 	65536 * 106 + 256 * 52 + 3
 };
 
-// void	*draw_jul(void *ag)
-// {
-// 	float	cur[3];		// cur z (real and imaginary) and tmp
-// 	int		i;			// the cur iteration
-// 	t_mlx	*m;
-// 	int		cor[2];		// cur and init coordinates (x, y)
-//
-// 	m = (t_mlx *)ag;
-// 	cor[1] = 1;
-// 	while (++cor[1] < WIN_H)
-// 	{
-// 		cor[0] = -1;
-// 		while (++cor[0] < WIN_W)
-// 		{
-// 			cur[0] = calc_cor(m, cor[0], 0);
-// 			cur[1] = calc_cor(m, cor[1], 1);
-// 			i = test_converge(m, cur, m->init_c);
-// 			((unsigned int *)m->ad)[(cor[1] * WIN_W + cor[0])] = i <= m->mx_i ? g_color[i % 16] : 0;
-// 		}
-// 	}
-// }
-
 int julia_converge(t_mlx *m, int x, int y)
 {
-	float	cur[3];		// cur z (real and imaginary) and tmp
+	float	cur[3];
 	float	pxl_to_coor[2];
 	int		i;
 
@@ -62,7 +40,7 @@ int julia_converge(t_mlx *m, int x, int y)
 
 int ship_converge(t_mlx *m, int x, int y)
 {
-	float	cur[3];		// cur z (real and imaginary) and tmp
+	float	cur[3];
 	float	pxl_to_coor[2];
 	int		i;
 
@@ -80,9 +58,29 @@ int ship_converge(t_mlx *m, int x, int y)
 	return (i);
 }
 
+int tricorn_converge(t_mlx *m, int x, int y)
+{
+	float	cur[3];
+	float	pxl_to_coor[2];
+	int		i;
+
+	i = 0;
+	cur[0] = 0;
+	cur[1] = 0;
+	pxl_to_coor[0] = calc_cor(m, x, 0);
+	pxl_to_coor[1] = calc_cor(m, y, 1);
+	while (i++ < m->mx_i && cur[0] * cur[0] + cur[1] * cur[1] <= m->mx_d)
+	{
+		cur[2] = cur[0] * cur[0] - cur[1] * cur[1] + pxl_to_coor[0];
+		cur[1] = 2 * cur[0] * cur[1] + pxl_to_coor[1];
+		cur[0] = cur[2];
+	}
+	return (i);
+}
+
 int man_converge(t_mlx *m, int x, int y)
 {
-	float	cur[3];		// cur z (real and imaginary) and tmp
+	float	cur[3];
 	float	pxl_to_coor[2];
 	int		i;
 

@@ -31,8 +31,8 @@ int		mouse_handler(int b, int x, int y, t_mlx *m)
 	float	y_mid;
 	float	n_mid[2];
 
-	ft_putnbr(b);
-	ft_putchar('\n');
+	// ft_putnbr(b);
+	// ft_putchar('\n');
 	if (b == 4 || b == 5)
 	{
 		m->scale[0] = m->scale[0] / ((b == 4) ? 1.5 : 0.9);
@@ -54,10 +54,10 @@ void	setup(t_mlx *m)
 {
 	m->mx_i = 50;
 	m->mx_d = 4;
-	m->xy_mnmx[0] = -2.5;
-	m->xy_mnmx[1] = 1;
-	m->xy_mnmx[2] = -1;
-	m->xy_mnmx[3] = 1;
+	m->xy_mnmx[0] = -2;
+	m->xy_mnmx[1] = 2;
+	m->xy_mnmx[2] = -2;
+	m->xy_mnmx[3] = 2;
 	m->scale[0] = (m->xy_mnmx[1] - m->xy_mnmx[0]) / WIN_W;
 	m->scale[1] = (m->xy_mnmx[3] - m->xy_mnmx[2]) / WIN_H;
 	m->init_c[0] = 0;
@@ -73,8 +73,8 @@ void	setup(t_mlx *m)
 
 int		key_handler(int k, t_mlx *m)
 {
-	ft_putnbr(k);
-	ft_putchar('\n');
+	// ft_putnbr(k);
+	// ft_putchar('\n');
 	if (k == 53)
 		exit(0);
 	else if (k == 4)

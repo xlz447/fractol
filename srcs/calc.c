@@ -1,12 +1,12 @@
 # include "../includes/fractol.h"
 
-float	calc_cor(t_mlx *m, int cor, int md) // 0: x 1: y
+float	calc_cor(t_mlx *m, int cor, int md)
 {
 	if (md == 0)
 		return(((m->xy_mnmx[0] + m->xy_mnmx[1]) / 2 +
 				(cor - (float)WIN_W / 2) * m->scale[0]));
 		return(((m->xy_mnmx[2] + m->xy_mnmx[3]) / 2 -
-				(cor - (float)WIN_H / 2) * m->scale[1]));	
+				(cor - (float)WIN_H / 2) * m->scale[1]));
 }
 
 void	shift(int k, t_mlx *m, float scale)
