@@ -18,7 +18,7 @@
 # define WIN_H 600
 # define WIN_W 800
 
-typedef struct	s_mlx // if we want to do mult. image, we might need a struct
+typedef struct	s_mlx
 {
 	void		*mlx; // mlx ptr
 	void		*win; // window ptr
@@ -40,7 +40,7 @@ typedef struct	s_mlx // if we want to do mult. image, we might need a struct
 
 
 void			draw(t_mlx *m);
-int				col_code(int iter);
 float			calc_cor(t_mlx *m, int cor, int mode);
 void			shift(int k, t_mlx *m, float scale);
+
 # endif
