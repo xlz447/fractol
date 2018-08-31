@@ -27,7 +27,7 @@ void	*draw_jul(void *ag)
 //	int		cor[4];		// cur and init coordinates (x, y)
 	t_mlx	*m;
 	int		cor[2];
-	
+
 	m = (t_mlx *)ag;
 	cor[1] = 0;
 	while (cor[1] < WIN_H)
@@ -38,9 +38,9 @@ void	*draw_jul(void *ag)
 			i = -1;
 			cur[0] = calc_cor(m, cor[0], 0);
 			cur[1] = calc_cor(m, cor[1], 1);
-			while (i++ < m->mx_i && pow(cur[0], 2) + pow(cur[1], 2) <= m->mx_d)
+			while (i++ < m->mx_i && cur[0] * cur[0] + cur[1] * cur[1] <= m->mx_d)
 			{
-				cur[2] = pow(cur[0], 2) - pow(cur[1], 2) + m->init_c[0];
+				cur[2] = cur[0] * cur[0] - cur[1] * cur[1] + m->init_c[0];
 				cur[1] = 2 * cur[0] * cur[1] + m->init_c[1];
 				cur[0] = cur[2];
 			}		
@@ -151,8 +151,10 @@ void	draw(t_mlx *m)
 //	pthread_t	th;
 //	int			i;
 		
-
+	static unsigned int x = 0;
+	x ++;
 	ft_putstr("Start Drawing\n");
+	ft_putnbr(x);
 //	i = 0;
 	if(m->set_mode == 0)
 		draw_man((void*)m);
