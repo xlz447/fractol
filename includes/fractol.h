@@ -23,8 +23,8 @@
 # include "../minilibx/mlx.h"
 # include "../libft/libft.h"
 
-# define WIN_H 1200
-# define WIN_W 1200
+# define WIN_H 800
+# define WIN_W 800
 
 /*
 ** mlx -- mlx ptr
@@ -55,12 +55,12 @@ typedef struct	s_mlx
 	int			s_l;
 	int			end;
 	char		*ad;
-	float		scale[2];
+	double		scale[2];
 	int			set_mode;
-	float		xy_mnmx[4];
+	double		xy_mnmx[4];
 	int			mx_i;
-	float		mx_d;
-	float		init_c[2];
+	double		mx_d;
+	double		init_c[2];
 	int			mouse[2];
 	char		hold;
 	int			color_index;
@@ -69,8 +69,8 @@ typedef struct	s_mlx
 
 void			setup(t_mlx *m);
 void			draw(t_mlx *m);
-float			calc_cor(t_mlx *m, int cor, int mode);
-void			shift(int k, t_mlx *m, float scale);
+double			calc_cor(t_mlx *m, int cor, int mode);
+void			shift(int k, t_mlx *m, double scale);
 int				qualslash_converge(t_mlx *m, int x, int y);
 int				man_converge(t_mlx *m, int x, int y);
 int				lauren_converge(t_mlx *m, int x, int y);

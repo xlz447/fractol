@@ -27,9 +27,9 @@ static int	mouse_move(int x, int y, t_mlx *m)
 
 static int	mouse_handler(int b, int x, int y, t_mlx *m)
 {
-	float	x_mid;
-	float	y_mid;
-	float	n_mid[2];
+	double	x_mid;
+	double	y_mid;
+	double	n_mid[2];
 
 	if (b == 4 || b == 5)
 	{

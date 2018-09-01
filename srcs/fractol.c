@@ -14,9 +14,9 @@
 
 int	julia_converge(t_mlx *m, int x, int y)
 {
-	float	i;
-	float	r;
-	float	tmp;
+	double	i;
+	double	r;
+	double	tmp;
 	int		iter;
 
 	iter = 0;
@@ -33,11 +33,11 @@ int	julia_converge(t_mlx *m, int x, int y)
 
 int	ship_converge(t_mlx *m, int x, int y)
 {
-	float	i;
-	float	r;
-	float	tmp;
+	double	i;
+	double	r;
+	double	tmp;
 	int		iter;
-	float	pxl_to_coor[2];
+	double	pxl_to_coor[2];
 
 	iter = 0;
 	i = 0;
@@ -57,11 +57,11 @@ int	ship_converge(t_mlx *m, int x, int y)
 
 int	lauren_converge(t_mlx *m, int x, int y)
 {
-	float	i;
-	float	r;
-	float	tmp;
+	double	i;
+	double	r;
+	double	tmp;
 	int		iter;
-	float	pxl_to_coor[2];
+	double	pxl_to_coor[2];
 
 	iter = 0;
 	i = 0;
@@ -79,11 +79,11 @@ int	lauren_converge(t_mlx *m, int x, int y)
 
 int	man_converge(t_mlx *m, int x, int y)
 {
-	float	i;
-	float	r;
-	float	tmp;
+	double	i;
+	double	r;
+	double	tmp;
 	int		iter;
-	float	pxl_to_coor[2];
+	double	pxl_to_coor[2];
 
 	iter = 0;
 	i = 0;
@@ -102,10 +102,10 @@ int	man_converge(t_mlx *m, int x, int y)
 
 int	qualslash_converge(t_mlx *m, int x, int y)
 {
-	float	i;
-	float	r;
-	float	tmpx;
-	float	tmpy;
+	double	i;
+	double	r;
+	double	tmpx;
+	double	tmpy;
 	int		iter;
 
 	iter = 0;
