@@ -24,8 +24,8 @@ int	julia_converge(t_mlx *m, int x, int y)
 	r = calc_cor(m, y, 1);
 	while (iter++ < m->mx_i && i * i + r * r <= m->mx_d)
 	{
-		tmp = i * i - r * r + m->init_c[0];
-		r = 2 * i * r + m->init_c[1];
+		tmp = i * i - r * r + m->init_c[1];
+		r = 2 * i * r + m->init_c[0];
 		i = tmp;
 	}
 	return (iter);

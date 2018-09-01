@@ -82,6 +82,7 @@ SRC = 				ft_putchar.c \
 					ft_lstsort.c \
 					ft_lstat.c \
 					ft_errorexit.c \
+					ft_exit.c \
 					get_next_line.c
 
 all: $(NAME)

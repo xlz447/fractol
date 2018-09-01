@@ -23,8 +23,8 @@
 # include "../minilibx/mlx.h"
 # include "../libft/libft.h"
 
-# define WIN_H 600
-# define WIN_W 800
+# define WIN_H 1200
+# define WIN_W 1200
 
 /*
 ** mlx -- mlx ptr

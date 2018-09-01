@@ -10,7 +10,7 @@ SRC		= main.c fractol.c draw.c color.c
 OBJ		= $(addprefix $(OBJDIR),$(SRC:.c=.o))
 
 CC		= gcc
-C_FLAGS = -Wall -Wextra -Werror
+C_FLAGS = -Wall -Wextra -Werror -g
 
 MLX		= ./minilibx/
 MLX_LIB	= $(addprefix $(MLX),mlx.a)

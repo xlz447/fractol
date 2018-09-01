@@ -110,6 +110,7 @@ int			main(int argc, char **argv)
 	mlx_key_hook(m.win, key_handler, &m);
 	mlx_mouse_hook(m.win, mouse_handler, &m);
 	mlx_hook(m.win, 6, 0, mouse_move, &m);
+	mlx_hook(m.win, 17, 0, ft_exit, &m);
 	mlx_loop(m.mlx);
 	return (0);
 }

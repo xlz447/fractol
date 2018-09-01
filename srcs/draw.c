@@ -109,8 +109,8 @@ void	draw(t_mlx *m)
 				i = lauren_converge(m, x, y);
 			else if (m->set_mode == 5)
 				i = qualslash_converge(m, x, y);
-			((unsigned int *)m->ad)[((WIN_H - y) * WIN_W + x)] = i <= m->mx_i ?
-			m->color[i % 16] : 0;
+			((unsigned int *)m->ad)[((WIN_H - (y + 1)) * WIN_W + x)] =
+			i <= m->mx_i ? m->color[i % 16] : 0;
 		}
 	}
 	mlx_put_image_to_window(m->mlx, m->win, m->img, 0, 0);
