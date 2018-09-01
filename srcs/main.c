@@ -73,8 +73,8 @@ void	setup(t_mlx *m)
 
 int		key_handler(int k, t_mlx *m)
 {
-	// ft_putnbr(k);
-	// ft_putchar('\n');
+	ft_putnbr(k);
+	ft_putchar('\n');
 	if (k == 53)
 		exit(0);
 	else if (k == 4)
@@ -85,6 +85,18 @@ int		key_handler(int k, t_mlx *m)
 		shift(k, m, 0.1);
 	else if (k == 69 || k == 78)
 		m->mx_i = k == 78 ? m->mx_i - 5 : m->mx_i + 5;
+	else if (k == 29)
+		m->set_mode = 0;
+	else if (k == 18)
+		m->set_mode = 1;
+	else if (k == 19)
+		m->set_mode = 2;
+	else if (k == 20)
+		m->set_mode = 3;
+	else if (k == 21)
+		m->set_mode = 4;
+	else if (k == 23)
+		m->set_mode = 5;
 	draw(m);
 	return (0);
 }
@@ -101,6 +113,12 @@ int		main(int argc, char **argv)
 		m.set_mode = 1;
 	else if (!strcmp(argv[1], "Ship"))
 		m.set_mode = 2;
+	else if (!strcmp(argv[1], "Tricorn"))
+		m.set_mode = 3;
+	else if (!strcmp(argv[1], "Lauren"))
+		m.set_mode = 4;
+	else if (!strcmp(argv[1], "Qualslash"))
+		m.set_mode = 5;
 	else
 		ft_errorexit("valid set names: Mandelbrot, Julia");
 	m.mlx = mlx_init();

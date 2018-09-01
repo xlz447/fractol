@@ -51,9 +51,11 @@ int ship_converge(t_mlx *m, int x, int y)
 	pxl_to_coor[1] = calc_cor(m, y, 1);
 	while (i++ < m->mx_i && cur[0] * cur[0] + cur[1] * cur[1] <= m->mx_d)
 	{
+		cur[0] = fabs(cur[0]);
+		cur[1] = fabs(cur[1]);
 		cur[2] = cur[0] * cur[0] - cur[1] * cur[1] + pxl_to_coor[0];
-		cur[1] = fabs(2 * cur[0] * cur[1]) + pxl_to_coor[1];
-		cur[0] = fabs(cur[2]);
+		cur[1] = 2 * cur[0] * cur[1] + pxl_to_coor[1];
+		cur[0] = cur[2];
 	}
 	return (i);
 }
@@ -72,6 +74,26 @@ int tricorn_converge(t_mlx *m, int x, int y)
 	while (i++ < m->mx_i && cur[0] * cur[0] + cur[1] * cur[1] <= m->mx_d)
 	{
 		cur[2] = cur[0] * cur[0] - cur[1] * cur[1] + pxl_to_coor[0];
+		cur[1] = -2 * cur[0] * cur[1] + pxl_to_coor[1];
+		cur[0] = cur[2];
+	}
+	return (i);
+}
+
+int lauren_converge(t_mlx *m, int x, int y)
+{
+	float	cur[3];
+	float	pxl_to_coor[2];
+	int		i;
+
+	i = 0;
+	cur[0] = 0;
+	cur[1] = 0;
+	pxl_to_coor[0] = calc_cor(m, x, 0);
+	pxl_to_coor[1] = calc_cor(m, y, 1);
+	while (i++ < m->mx_i && cur[0] * cur[0] + cur[1] * cur[1] <= m->mx_d)
+	{
+		cur[2] = fabs(cur[0] * cur[0] - cur[1] * cur[1]) + pxl_to_coor[0];
 		cur[1] = 2 * cur[0] * cur[1] + pxl_to_coor[1];
 		cur[0] = cur[2];
 	}
@@ -98,6 +120,25 @@ int man_converge(t_mlx *m, int x, int y)
 	return (i);
 }
 
+int qualslash_converge(t_mlx *m, int x, int y)
+{
+	float	cur[4];
+	float	pxl_to_coor[2];
+	int		i;
+
+	i = 0;
+	cur[0] = calc_cor(m, x, 0);
+	cur[1] = calc_cor(m, y, 1);
+	while (i++ < m->mx_i && cur[0] * cur[0] + cur[1] * cur[1] <= m->mx_d)
+	{
+		cur[2] = (cur[0] * cur[0] * cur[0] * cur[0]) - (6 * cur[0] * cur[0] * cur[1] * cur[1]) + (cur[1] * cur[1] * cur[1] * cur[1]) + calc_cor(m, x, 0);
+		cur[3] = (4 * cur[0] * cur[0] * cur[0] * cur[1]) - (4 * cur[0] * cur[1] * cur[1] * cur[1]) + calc_cor(m, y, 1);
+		cur[1] = cur[3];
+		cur[0] = cur[2];
+	}
+	return (i);
+}
+
 void draw(t_mlx *m)
 {
 	int		i;
@@ -112,10 +153,16 @@ void draw(t_mlx *m)
 		{
 			if (m->set_mode == 0)
 				i = man_converge(m, x, y);
-			else if (m->set_mode == 2)
-				i = ship_converge(m, x, y);
 			else if (m->set_mode == 1)
 				i = julia_converge(m, x, y);
+			else if (m->set_mode == 2)
+				i = ship_converge(m, x, y);
+			else if (m->set_mode == 3)
+				i = tricorn_converge(m, x, y);
+			else if (m->set_mode == 4)
+				i = lauren_converge(m, x, y);
+			else if (m->set_mode == 5)
+				i = qualslash_converge(m, x, y);
 			((unsigned int *)m->ad)[(y * WIN_W + x)] = i <= m->mx_i ?
 			g_color[i % 16] : 0;
 		}
