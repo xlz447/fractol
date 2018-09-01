@@ -1,5 +1,17 @@
-# ifndef FRACTOL_H
-#define FRACTOL_H
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   fractol.h                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: xzhu <marvin@42.fr>                        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/09/01 00:40:15 by xzhu              #+#    #+#             */
+/*   Updated: 2018/09/01 00:40:16 by xzhu             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#ifndef FRACTOL_H
+# define FRACTOL_H
 
 # include <stdlib.h>
 # include <math.h>
@@ -11,36 +23,59 @@
 # include "../minilibx/mlx.h"
 # include "../libft/libft.h"
 
-// -----------------
-#include <stdio.h>
-// -----------------
-
 # define WIN_H 600
 # define WIN_W 800
 
+/*
+** mlx -- mlx ptr
+** win -- win ptr
+** img -- img ptr
+** bpp -- 1 byte per pix for RGB
+** s_l -- 1 byte * WIN_W
+** end -- endian
+** ad -- char * of the image
+** scale -- x, y scale
+** set_mode -- which fractol to start darwing
+** xy_mnmx -- x min max y min max
+** mx_i -- max iteration
+** mx_d -- max distance
+** init_c -- the constant used in julia (change by arrow position)
+** mouse -- current mouse position
+** hold -- hold current img for julia
+** color_index -- index of which color set to use
+** color -- rgb value of current color set
+*/
+
 typedef struct	s_mlx
 {
-	void		*mlx; // mlx ptr
-	void		*win; // window ptr
-	void		*img; // image ptr
-	int			b_p_p; // 1 byte per pix for RGB
-	int			s_l; // 1 byte * WIN_W
-	int			end; // endian
-	char		*ad; // char * of the image
-	float		scale[2]; // x, y scale
-	int			set_mode; // 0 for Mandelbrot 1 for Julia
-	float		xy_mnmx[4]; // x min max y min max
-	int			mx_i;	// max iteration
-	float		mx_d;	// max distance
-	char		th_i;	// thread index
-	float		init_c[2]; // the constant used in julia (change by arrow position)
+	void		*mlx;
+	void		*win;
+	void		*img;
+	int			b_p_p;
+	int			s_l;
+	int			end;
+	char		*ad;
+	float		scale[2];
+	int			set_mode;
+	float		xy_mnmx[4];
+	int			mx_i;
+	float		mx_d;
+	float		init_c[2];
 	int			mouse[2];
-	char		hold;	// this allows user to hold the constant for julia
+	char		hold;
+	int			color_index;
+	const int	*color;
 }				t_mlx;
 
-
+void			setup(t_mlx *m);
 void			draw(t_mlx *m);
 float			calc_cor(t_mlx *m, int cor, int mode);
 void			shift(int k, t_mlx *m, float scale);
+int				qualslash_converge(t_mlx *m, int x, int y);
+int				man_converge(t_mlx *m, int x, int y);
+int				lauren_converge(t_mlx *m, int x, int y);
+int				ship_converge(t_mlx *m, int x, int y);
+int				julia_converge(t_mlx *m, int x, int y);
+void			change_color(t_mlx *m, int k);
 
-# endif
+#endif

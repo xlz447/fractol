@@ -5,7 +5,7 @@ GREEN	=	\033[0;32m
 BLUE	=	\033[0;34m
 RED		=	\033[0;31m
 
-SRC		= main.c fractol.c calc.c
+SRC		= main.c fractol.c draw.c color.c
 
 OBJ		= $(addprefix $(OBJDIR),$(SRC:.c=.o))
 
@@ -34,7 +34,7 @@ obj:
 	@mkdir -p $(OBJDIR)
 
 $(OBJDIR)%.o:$(SRCDIR)%.c
-		@$(CC) $(CFLAGS) $(MLX_INC) $(FT_INC) -I $(INCDIR) -o $@ -c $<
+		@$(CC) $(C_FLAGS) $(MLX_INC) $(FT_INC) -I $(INCDIR) -o $@ -c $<
 
 $(FT_LIB):
 		@make -C $(FT)
