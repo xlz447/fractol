@@ -108,12 +108,10 @@ static void	colorset3(t_mlx *m)
 	m->color = color;
 }
 
-void		change_color(t_mlx *m, int k)
+void		change_color(t_mlx *m)
 {
-	m->color_index = k == 43 ? (m->color_index) - 1 : (m->color_index) + 1;
-	if (m->color_index == -1)
-		m->color_index = 3;
-	else if (m->color_index == 4)
+	m->color_index = (m->color_index) + 1;
+	if (m->color_index == 4)
 		m->color_index = 0;
 	if (m->color_index == 0)
 		colorset0(m);

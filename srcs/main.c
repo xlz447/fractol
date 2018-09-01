@@ -66,9 +66,11 @@ static int	key_handler(int k, t_mlx *m)
 		m->set_mode = 4;
 	else if (k == 22)
 		m->set_mode = 5;
-	else if (k == 43 || k == 47)
-		change_color(m, k);
+	else if (k == 8)
+		change_color(m);
 	draw(m);
+	if (k == 34)
+		print_instructions(m);
 	return (0);
 }
 
@@ -104,6 +106,7 @@ int			main(int argc, char **argv)
 	m.img = mlx_new_image(m.mlx, WIN_W, WIN_H);
 	setup(&m);
 	draw(&m);
+	print_instructions(&m);
 	mlx_key_hook(m.win, key_handler, &m);
 	mlx_mouse_hook(m.win, mouse_handler, &m);
 	mlx_hook(m.win, 6, 0, mouse_move, &m);

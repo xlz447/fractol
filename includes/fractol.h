@@ -76,6 +76,7 @@ int				man_converge(t_mlx *m, int x, int y);
 int				lauren_converge(t_mlx *m, int x, int y);
 int				ship_converge(t_mlx *m, int x, int y);
 int				julia_converge(t_mlx *m, int x, int y);
-void			change_color(t_mlx *m, int k);
+void			change_color(t_mlx *m);
+void			print_instructions(t_mlx *m);
 
 #endif

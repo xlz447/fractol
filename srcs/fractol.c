@@ -93,7 +93,8 @@ int	man_converge(t_mlx *m, int x, int y)
 	while (iter++ < m->mx_i && i * i + r * r <= m->mx_d)
 	{
 		tmp = i * i - r * r + pxl_to_coor[0];
-		r = 2 * i * r + pxl_to_coor[1];
+		r = m->set_mode == 0 ? 2 * i * r + pxl_to_coor[1] :
+								-2 * i * r + pxl_to_coor[1];
 		i = tmp;
 	}
 	return (iter);

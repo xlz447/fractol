@@ -14,16 +14,16 @@
 
 void	print_instructions(t_mlx *m)
 {
-	mlx_string_put(m->mlx, m->win, 5, 0, 0xFFFFFF, "Instructions: ");
-	mlx_string_put(m->mlx, m->win, 5, 20, 0xFFFFFF, "Zoom in/out: mouse wheel");
+	mlx_string_put(m->mlx, m->win, 5, 0, 0xFFFFFF, "Zoom: mouse wheel");
+	mlx_string_put(m->mlx, m->win, 5, 20, 0xFFFFFF, "Recenter: mouse click");
 	mlx_string_put(m->mlx, m->win, 5, 40, 0xFFFFFF,
-		"Recenter current mouse position: left mouse click");
-	mlx_string_put(m->mlx, m->win, 5, 60, 0xFFFFFF,
-		"Increase/decrease interaction: keypad +/- ");
-	mlx_string_put(m->mlx, m->win, 5, 80, 0xFFFFFF, "Change color set: </>");
-	mlx_string_put(m->mlx, m->win, 5, 100, 0xFFFFFF, "Reposition: arrows");
+		"Change interaction: keypad +/- ");
+	mlx_string_put(m->mlx, m->win, 5, 60, 0xFFFFFF, "Change color set: c");
+	mlx_string_put(m->mlx, m->win, 5, 80, 0xFFFFFF, "Shift: arrows");
+	mlx_string_put(m->mlx, m->win, 5, 100, 0xFFFFFF,
+		"Change Fractols: 1 2 3 4 5 6");
 	mlx_string_put(m->mlx, m->win, 5, 120, 0xFFFFFF,
-		"Change Fractols 1 2 3 4 5 6");
+		"Print Instructions: i");
 }
 
 void	setup(t_mlx *m)
@@ -45,7 +45,7 @@ void	setup(t_mlx *m)
 	m->s_l = 1 * WIN_W;
 	m->end = 1;
 	m->color_index = 0;
-	change_color(m, 0);
+	change_color(m);
 	m->ad = mlx_get_data_addr(m->img, &(m->b_p_p), &(m->s_l), &(m->end));
 }
 
@@ -67,13 +67,13 @@ void	shift(int k, t_mlx *m, float scale)
 		shift = WIN_H * scale * fabs(m->scale[1]);
 	if (k == 126)
 	{
-		m->xy_mnmx[2] -= shift;
-		m->xy_mnmx[3] -= shift;
+		m->xy_mnmx[2] += shift;
+		m->xy_mnmx[3] += shift;
 	}
 	else if (k == 125)
 	{
-		m->xy_mnmx[2] += shift;
-		m->xy_mnmx[3] += shift;
+		m->xy_mnmx[2] -= shift;
+		m->xy_mnmx[3] -= shift;
 	}
 	else if (k == 123)
 	{
@@ -114,5 +114,4 @@ void	draw(t_mlx *m)
 		}
 	}
 	mlx_put_image_to_window(m->mlx, m->win, m->img, 0, 0);
-	print_instructions(m);
 }
