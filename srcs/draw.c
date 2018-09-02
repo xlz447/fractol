@@ -99,16 +99,7 @@ void	draw(t_mlx *m)
 		x = -1;
 		while (++x < WIN_W)
 		{
-			if (m->set_mode == 0 || m->set_mode == 3)
-				i = man_converge(m, x, y);
-			else if (m->set_mode == 1)
-				i = julia_converge(m, x, y);
-			else if (m->set_mode == 2)
-				i = ship_converge(m, x, y);
-			else if (m->set_mode == 4)
-				i = lauren_converge(m, x, y);
-			else if (m->set_mode == 5)
-				i = qualslash_converge(m, x, y);
+			i = dispatch(m, x, y);
 			((unsigned int *)m->ad)[((WIN_H - (y + 1)) * WIN_W + x)] =
 			i <= m->mx_i ? m->color[i % 16] : 0;
 		}

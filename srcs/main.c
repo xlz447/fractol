@@ -60,12 +60,12 @@ static int	key_handler(int k, t_mlx *m)
 		shift(k, m, 0.1);
 	else if (k == 69 || k == 78)
 		m->mx_i = k == 78 ? m->mx_i - 5 : m->mx_i + 5;
-	else if (k == 18 || k == 19 || k == 20 || k == 21)
+	else if (k == 18 || k == 19 || k == 20 || k == 21 || k == 22 || k == 23)
 		m->set_mode = k - 18;
-	else if (k == 23)
-		m->set_mode = 4;
-	else if (k == 22)
-		m->set_mode = 5;
+	else if (k == 26)
+		m->set_mode = 6;
+	else if (k == 28)
+		m->set_mode = 7;
 	else if (k == 8)
 		change_color(m);
 	draw(m);
@@ -78,7 +78,7 @@ static void	check_input(t_mlx *m, int argc, char *arg)
 {
 	if (argc != 2)
 		ft_errorexit(
-	"usage: ./fractol <Mandelbrot, Julia, Ship, Tricorn, Lauren, Qualslash>");
+	"usage: ./fractol <Mandelbrot, Julia, Ship, Tricorn ...>");
 	if (!strcmp(arg, "Mandelbrot"))
 		m->set_mode = 0;
 	else if (!strcmp(arg, "Julia"))
@@ -91,9 +91,13 @@ static void	check_input(t_mlx *m, int argc, char *arg)
 		m->set_mode = 4;
 	else if (!strcmp(arg, "Qualslash"))
 		m->set_mode = 5;
+	else if (!strcmp(arg, "Test1"))
+		m->set_mode = 6;
+	else if (!strcmp(arg, "Test2"))
+		m->set_mode = 7;
 	else
 		ft_errorexit(
-		"valid set names: Mandelbrot, Julia, Ship, Tricorn, Lauren, Qualslash");
+		"valid set names: Mandelbrot, Julia, Ship, Tricorn ...");
 }
 
 int			main(int argc, char **argv)

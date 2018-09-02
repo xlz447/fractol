@@ -78,5 +78,8 @@ int				ship_converge(t_mlx *m, int x, int y);
 int				julia_converge(t_mlx *m, int x, int y);
 void			change_color(t_mlx *m);
 void			print_instructions(t_mlx *m);
+int				dispatch(t_mlx *m, int x, int y);
+int				test1_converge(t_mlx *m, int x, int y);
+int				test2_converge(t_mlx *m, int x, int y);
 
 #endif
