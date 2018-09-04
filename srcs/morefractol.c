@@ -12,45 +12,50 @@
 
 #include "../includes/fractol.h"
 
-int		test1_converge(t_mlx *m, int x, int y)
+
+int	man_fifth_converge(t_mlx *m, int x, int y)
 {
 	double	i;
 	double	r;
-	double	tmpi;
-	double	tmpr;
+	double	tmp;
 	int		iter;
+	double	pxl_to_coor[2];
 
 	iter = 0;
-	i = calc_cor(m, x, 0);
-	r = calc_cor(m, y, 1);
-	while (iter++ < m->mx_i && i + r <= m->mx_d)
+	i = 0;
+	r = 0;
+	pxl_to_coor[0] = calc_cor(m, x, 0);
+	pxl_to_coor[1] = calc_cor(m, y, 1);
+	while (iter++ < m->mx_i && i * i + r * r <= m->mx_d)
 	{
-		i = 2 * fabs(i + r) + m->init_c[1];
-		r = tmpi - tmpr - m->init_c[0];
-		tmpr = r * r;
-		tmpi = i * i;
+		tmp = r * r * r * r * r - 10 * r * r * r * i * i + 5 * r * i * i * i * i + pxl_to_coor[0];
+		i = 5 * r * r * r * r * i - 10 * r * r * i * i * i + i * i * i * i * i + pxl_to_coor[1];
+		r = tmp;		
 	}
 	return (iter);
 }
 
-int		test2_converge(t_mlx *m, int x, int y)
+
+int		man_sixth_converge(t_mlx *m, int x, int y)
 {
 	double	i;
 	double	r;
-	double	tmpi;
-	double	tmpr;
+	double	tmp;
 	int		iter;
+	double	pxl_to_coor[2];
 
 	iter = 0;
-	i = calc_cor(m, x, 0);
-	r = calc_cor(m, y, 1);
-	while (iter++ < m->mx_i && i + r <= m->mx_d)
+	i = 0;
+	r = 0;
+	pxl_to_coor[0] = calc_cor(m, x, 0);
+	pxl_to_coor[1] = calc_cor(m, y, 1);
+	while (iter++ < m->mx_i && i * i + r * r <= m->mx_d)
 	{
-		i = 2 * fabs(i + r) + m->init_c[1];
-		r = tmpi - tmpr - m->init_c[0];
-		tmpr = r * r;
-		tmpi = i * i;
+		tmp = r * r * r - 3 * r * i * i + pxl_to_coor[0];
+		i = 3 * r * r * i - i * i * i + pxl_to_coor[1];
+		r = tmp;		
 	}
+	return (iter);
 	return (iter);
 }
 
@@ -67,9 +72,9 @@ int		dispatch(t_mlx *m, int x, int y)
 	else if (m->set_mode == 5)
 		return (qualslash_converge(m, x, y));
 	else if (m->set_mode == 6)
-		return (test1_converge(m, x, y));
+		return (man_fifth_converge(m, x, y));
 	else if (m->set_mode == 7)
-		return (test2_converge(m, x, y));
+		return (man_sixth_converge(m, x, y));
 	else
 		return (0);
 }
