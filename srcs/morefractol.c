@@ -12,8 +12,7 @@
 
 #include "../includes/fractol.h"
 
-
-int	man_fifth_converge(t_mlx *m, int x, int y)
+int		man_fifth_converge(t_mlx *m, int x, int y)
 {
 	double	i;
 	double	r;
@@ -28,13 +27,14 @@ int	man_fifth_converge(t_mlx *m, int x, int y)
 	pxl_to_coor[1] = calc_cor(m, y, 1);
 	while (iter++ < m->mx_i && i * i + r * r <= m->mx_d)
 	{
-		tmp = r * r * r * r * r - 10 * r * r * r * i * i + 5 * r * i * i * i * i + pxl_to_coor[0];
-		i = 5 * r * r * r * r * i - 10 * r * r * i * i * i + i * i * i * i * i + pxl_to_coor[1];
-		r = tmp;		
+		tmp = r * r * r * r * r - 10 * r * r * r * i * i +
+			5 * r * i * i * i * i + pxl_to_coor[0];
+		i = 5 * r * r * r * r * i - 10 * r * r * i * i * i +
+			i * i * i * i * i + pxl_to_coor[1];
+		r = tmp;
 	}
 	return (iter);
 }
-
 
 int		man_sixth_converge(t_mlx *m, int x, int y)
 {
@@ -53,7 +53,7 @@ int		man_sixth_converge(t_mlx *m, int x, int y)
 	{
 		tmp = r * r * r - 3 * r * i * i + pxl_to_coor[0];
 		i = 3 * r * r * i - i * i * i + pxl_to_coor[1];
-		r = tmp;		
+		r = tmp;
 	}
 	return (iter);
 	return (iter);

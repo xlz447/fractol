@@ -21,7 +21,7 @@ void	print_instructions(t_mlx *m)
 	mlx_string_put(m->mlx, m->win, 5, 60, 0xFFFFFF, "Change color set: c");
 	mlx_string_put(m->mlx, m->win, 5, 80, 0xFFFFFF, "Shift: arrows");
 	mlx_string_put(m->mlx, m->win, 5, 100, 0xFFFFFF,
-		"Change Fractols: 1 2 3 4 5 6");
+		"Change Fractols: 1 2 3...");
 	mlx_string_put(m->mlx, m->win, 5, 120, 0xFFFFFF,
 		"Print Instructions: i");
 }
